@@ -88,7 +88,7 @@ public class Menu {
 				arq.setExpressao(this.tagsDigitadas.get(i), caminhoTag);
 			System.out.println("[INFO] TAGS ADICIONADAS AO ARQUIVO.");
 			/**
-                         * Acho que n√£o faz sentido limpar as tags da memoria do 
+                         * Acho que n„o faz sentido limpar as tags da memoria do 
                          * programa sempre que for salvar no arquivo de saida(professor
                          * falou isso)
                          */
@@ -107,7 +107,7 @@ public class Menu {
 	 */
 	private void definicoesDeTag(String caminhoTag) {
             /**
-             * Mudan√ßa ... Limpando o arrayList de tags carregadas
+             * MudanÁa ... Limpando o arrayList de tags carregadas
              * sempre que for carregar as tags da memoria.
              */
             this.tagsCarregadas.clear();
@@ -140,24 +140,60 @@ public class Menu {
             
             Arquivo arq = new Arquivo();
             ArrayList<String> exDiv = arq.getExpressao(caminhoString);
-            this.definicao = teste(exDiv.get(0));
+            this.definicao = divideTag(exDiv.get(0));
             if(!"".equals(this.definicao)){
                 System.out.println(this.definicao);
             }else{
-                System.out.println("[INFO] N√£o pertence a nenhuma tag j√° definida.");
+                System.out.println("[INFO] Nao pertence a nenhuma tag j· definida.");
             }
 	}
-        private String teste(String expressao){
+        /**
+         * FunÁ„o que divide a expressao passada em tags
+         * @param expressao expressao a ser dividida
+         * @return as tags da expressao dividida
+         */
+        private String divideTag(String expressao){
+            /**
+             * string com a divisao
+             */
             String definicao = "";
+            /**
+             * vai salvar apenas as tegs que nao tiver uma tag anterior igual e
+             * depois concatena na string definicao
+             */
             String [] defTes = null;
+            /**
+             * contador do inde do defTes
+             */
             int contAux = 0;
             char [] caracterEx = expressao.toCharArray();
+            /**
+             * atribui o tamanho do array igual a qtd de caracter da expressao
+             */
             defTes = new String[caracterEx.length];
+            /**
+             * compara cada caracter com todas as tegs j· definida
+             */
             for(int k = 0 ; k < caracterEx.length ; k++){
+                /**
+                 * variavel que informa se foi ou nao adiciona o nome da tag 
+                 * no array para os alfabetos que j· existir nas tegs definidas
+                 */
+                boolean existe = false;
                 for(int i = 0 ; i < this.tagsCarregadas.size(); i++){
+                    /**
+                     * divide as tags definidas em nome e expressao
+                     */
                     String [] tags = this.tagsCarregadas.get(i).split(" ");
+                    /**
+                     * tranforma a expressao da tag em um array de char
+                     */
                     char [] caracterTag = tags[1].toCharArray();
                     for(int j = 0 ; j < caracterTag.length ; j++){
+                        /**
+                         * se for igual a expressao e diferentes dos caracter de 
+                         * operacao logicas
+                         */
                         if(caracterTag[j] == caracterEx[k] && caracterTag[j] != '+'
                                 && caracterTag[j] != '.' && caracterTag[j] != '*'){
                             String [] nomeTag = tags[0].split(":");
@@ -165,15 +201,30 @@ public class Menu {
                                 if(!defTes[(contAux-1)].equals(nomeTag[0])){
                                     defTes[contAux] = nomeTag[0];
                                     contAux++;
-                                }
+                                    existe = true;
+                                }else
+                                    existe = true;
                             }else{
                                 defTes[contAux] = nomeTag[0];
                                 contAux++;
+                                existe = true;
                             }
                         }
                     }
                 }
+                /**
+                 * se nao for adicionado o nome da tag significa que nao existe 
+                 * uma teg definida para o alfabeto informado
+                 */
+                if(!existe){
+                    defTes[contAux] = "| [ERRO] alfabeto '"+caracterEx[k]+"' nao definido |";
+                    contAux++;
+                }
+                
             }
+            /**
+             * concatena o array de tags em uma string para ser retornado
+             */
             for(int i = 0 ; i < defTes.length ; i++){
                 if(defTes[i] != null){
                     definicao = definicao+" "+defTes[i];
@@ -187,11 +238,11 @@ public class Menu {
 	 */
 	@SuppressWarnings("unused")
 	private void divisaoEmTags(String expressao) {
-            this.definicao = teste(expressao);
+            this.definicao = divideTag(expressao);
             if(!"".equals(this.definicao)){
                 System.out.println(this.definicao);
             }else{
-                System.out.println("[INFO] N√£o pertence a nenhuma tag j√° definida.");
+                System.out.println("[INFO] Nao pertence a nenhuma tag j· definida.");
             }
 	}
 
