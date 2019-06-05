@@ -140,7 +140,11 @@ public class Menu {
             
             Arquivo arq = new Arquivo();
             ArrayList<String> exDiv = arq.getExpressao(caminhoString);
-            this.definicao = divideTag(exDiv.get(0));
+            /**
+             * Tratar erro quando a função getExpressao nao retornar nada
+             */
+            ReconheceTag rec = new ReconheceTag();
+            this.definicao = rec.divideTag(exDiv.get(0), this.tagsCarregadas);
             if(!"".equals(this.definicao)){
                 System.out.println(this.definicao);
             }else{
@@ -151,98 +155,68 @@ public class Menu {
          * Função que divide a expressao passada em tags
          * @param expressao expressao a ser dividida
          * @return as tags da expressao dividida
+         * utilizando a função ReconheceTag
          */
-        private String divideTag(String expressao){
-            /**
-             * string com a divisao
-             */
+        /*private String divideTag(String expressao){
+            
             String definicao = "";
-            /**
-             * vai salvar apenas as tegs que nao tiver uma tag anterior igual e
-             * depois concatena na string definicao
-             */
             String [] defTes = null;
-            /**
-             * contador do inde do defTes
-             */
             int contAux = 0;
             char [] caracterEx = expressao.toCharArray();
-            /**
-             * atribui o tamanho do array igual a qtd de caracter da expressao
-             */
             defTes = new String[caracterEx.length];
-            /**
-             * compara cada caracter com todas as tegs já definida
-             */
             for(int k = 0 ; k < caracterEx.length ; k++){
-                /**
-                 * variavel que informa se foi ou nao adiciona o nome da tag 
-                 * no array para os alfabetos que já existir nas tegs definidas
-                 */
+                
                 boolean existe = false;
                 for(int i = 0 ; i < this.tagsCarregadas.size(); i++){
-                    /**
-                     * divide as tags definidas em nome e expressao
-                     */
                     String [] tags = this.tagsCarregadas.get(i).split(" ");
-                    /**
-                     * tranforma a expressao da tag em um array de char
-                     */
                     char [] caracterTag = tags[1].toCharArray();
                     for(int j = 0 ; j < caracterTag.length ; j++){
-                        /**
-                         * se for igual a expressao e diferentes dos caracter de 
-                         * operacao logicas
-                         */
                         if(caracterTag[j] == caracterEx[k] && caracterTag[j] != '+'
                                 && caracterTag[j] != '.' && caracterTag[j] != '*'){
                             String [] nomeTag = tags[0].split(":");
-                            if(contAux >= 1){
-                                if(!defTes[(contAux-1)].equals(nomeTag[0])){
+                            if(contAux < caracterEx.length)
+                                if(contAux >= 1){
+                                    if(!defTes[(contAux-1)].equals(nomeTag[0])){
+                                        defTes[contAux] = nomeTag[0];
+                                        contAux++;
+                                        existe = true;
+                                        
+                                    }else
+                                        existe = true;
+                                }else{
                                     defTes[contAux] = nomeTag[0];
                                     contAux++;
                                     existe = true;
-                                }else
-                                    existe = true;
-                            }else{
-                                defTes[contAux] = nomeTag[0];
-                                contAux++;
-                                existe = true;
-                            }
+                                    
+                                }
                         }
                     }
                 }
-                /**
-                 * se nao for adicionado o nome da tag significa que nao existe 
-                 * uma teg definida para o alfabeto informado
-                 */
                 if(!existe){
                     defTes[contAux] = "| [ERRO] alfabeto '"+caracterEx[k]+"' nao definido |";
                     contAux++;
                 }
                 
             }
-            /**
-             * concatena o array de tags em uma string para ser retornado
-             */
             for(int i = 0 ; i < defTes.length ; i++){
                 if(defTes[i] != null){
                     definicao = definicao+" "+defTes[i];
                 }
             }
             return definicao;
-        }
+        }*/
 	/**
 	 * (:p) - Metodo que realiza a divisao em tags da expressao que o usuario
 	 * digitar.
 	 */
 	@SuppressWarnings("unused")
 	private void divisaoEmTags(String expressao) {
-            this.definicao = divideTag(expressao);
+            ReconheceTag rec = new ReconheceTag();
+            this.definicao = rec.divideTag(expressao, this.tagsCarregadas);
             if(!"".equals(this.definicao)){
                 System.out.println(this.definicao);
             }else{
-                System.out.println("[INFO] Nao pertence a nenhuma tag já definida.");
+                System.out.println("[INFO] Nao pertence a nenhuma tag já definida - Função nova -.");
             }
 	}
 

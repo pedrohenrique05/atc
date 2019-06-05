@@ -1,1 +1,1 @@
-tag: ab.tag1: cd+tag2: e*tag3: =tag4: fg.h+i.*
+tag1: ab.tag2: cd+tag3: e*tag4: =tag5: fg.h+i.*tag6: ak.
