@@ -22,7 +22,6 @@ public class ReconheceTag {
             String definicao = "";
             char [] caracterEx = expressao.toCharArray();
             for(int k = 0 ; k < caracterEx.length ; k++){
-                boolean existe = false;
                 int qtdTags = 0;
                     String tagAlerta = "";
                 for(int i = 0 ; i < tagsPar.size(); i++){
@@ -33,15 +32,13 @@ public class ReconheceTag {
                                 && caracterTag[j] != '.' && caracterTag[j] != '*' 
                                 && caracterTag[j] != '\\'){
                             String [] nomeTag = tags[0].split(":");
-                            //this.nameTags.push(nomeTag[0]);
                             tagAlerta = tagAlerta+ " "+nomeTag[0];
-                            existe = true;
                             qtdTags++;
                         }
                     }
                 }
                 if(qtdTags>1){
-                    tagAlerta = "| [WARNING] Sobreposição na definição das TAGS: "+tagAlerta+" |";
+                    tagAlerta = "| [WARNING] Sobreposicao na definição das TAGS: "+tagAlerta+" |";
                     this.nameTags.push(tagAlerta);
                 }else if(qtdTags == 1){
                     this.nameTags.push(tagAlerta);

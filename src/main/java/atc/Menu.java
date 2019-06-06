@@ -88,7 +88,7 @@ public class Menu {
 				arq.setExpressao(this.tagsDigitadas.get(i), caminhoTag);
 			System.out.println("[INFO] TAGS ADICIONADAS AO ARQUIVO.");
 			/**
-                         * Acho que não faz sentido limpar as tags da memoria do 
+                         * Acho que nao faz sentido limpar as tags da memoria do 
                          * programa sempre que for salvar no arquivo de saida(professor
                          * falou isso)
                          */
@@ -151,60 +151,7 @@ public class Menu {
                 System.out.println("[INFO] Nao pertence a nenhuma tag já definida.");
             }
 	}
-        /**
-         * Função que divide a expressao passada em tags
-         * @param expressao expressao a ser dividida
-         * @return as tags da expressao dividida
-         * utilizando a função ReconheceTag
-         */
-        /*private String divideTag(String expressao){
-            
-            String definicao = "";
-            String [] defTes = null;
-            int contAux = 0;
-            char [] caracterEx = expressao.toCharArray();
-            defTes = new String[caracterEx.length];
-            for(int k = 0 ; k < caracterEx.length ; k++){
-                
-                boolean existe = false;
-                for(int i = 0 ; i < this.tagsCarregadas.size(); i++){
-                    String [] tags = this.tagsCarregadas.get(i).split(" ");
-                    char [] caracterTag = tags[1].toCharArray();
-                    for(int j = 0 ; j < caracterTag.length ; j++){
-                        if(caracterTag[j] == caracterEx[k] && caracterTag[j] != '+'
-                                && caracterTag[j] != '.' && caracterTag[j] != '*'){
-                            String [] nomeTag = tags[0].split(":");
-                            if(contAux < caracterEx.length)
-                                if(contAux >= 1){
-                                    if(!defTes[(contAux-1)].equals(nomeTag[0])){
-                                        defTes[contAux] = nomeTag[0];
-                                        contAux++;
-                                        existe = true;
-                                        
-                                    }else
-                                        existe = true;
-                                }else{
-                                    defTes[contAux] = nomeTag[0];
-                                    contAux++;
-                                    existe = true;
-                                    
-                                }
-                        }
-                    }
-                }
-                if(!existe){
-                    defTes[contAux] = "| [ERRO] alfabeto '"+caracterEx[k]+"' nao definido |";
-                    contAux++;
-                }
-                
-            }
-            for(int i = 0 ; i < defTes.length ; i++){
-                if(defTes[i] != null){
-                    definicao = definicao+" "+defTes[i];
-                }
-            }
-            return definicao;
-        }*/
+        
 	/**
 	 * (:p) - Metodo que realiza a divisao em tags da expressao que o usuario
 	 * digitar.
